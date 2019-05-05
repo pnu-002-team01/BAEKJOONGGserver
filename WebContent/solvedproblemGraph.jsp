@@ -1,17 +1,26 @@
-<%@page language="java" contentType = "text/html; charset=UTF-8"
+<%@ page language="java" contentType = "text/html; charset=UTF-8"
 	pageEncoding ="UTF-8" %>
+<%@ page import="datateam.*"%>
+<%@ page import="java.util.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String userid = request.getParameter("userId");
+	BaekjoonCrawler bj = new BaekjoonCrawler(userid, "rlawngh2@");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
     
     <script>
+    function writeUserData(userId, updateDate, solved, solvedproblems, unsolved, unsolvedproblems) {
+  	  firebase.database().ref('user/' + userId + '/' + updateDate).set({
+  		  countSolvedProblems: solved,
+  		  solvedProblems : solvedproblems,
+  		  countUnsolvedProblems : unsolved,
+  		  unsolvedProblems : unsolvedproblems
+  	  });
+  	}
 		function start() {
 	        // Initialize Firebase
 	        var config = {
@@ -24,8 +33,33 @@
 	        };
 	        firebase.initializeApp(config);
 			
+	        
 	        var rootRef = firebase.database().ref();
-	        var userId = "<%=userid%>";
+			var userId = "<%=userid%>";
+			<%
+				ArrayList<String> tmp = bj.crawlSolvedProblem(userid);
+				Iterator it = tmp.iterator();
+			%>
+			
+	        var solved = [<%
+				while(it.hasNext()) {
+					out.println(it.next() + ",");
+				}
+	        %>];
+	        
+	        var unsolved = [
+	        	<%
+	        	String tmp2 = new String("\"");
+	        	while(it.hasNext()) {
+	        		tmp2.concat(it.next() + "\n");
+	        	}
+	        	tmp2.concat("\"");
+	        	%>
+	        ]
+	        
+	        document.getElementById("pref").innerHTML = unsolved;
+	        
+	        writeUserData(userId, updateDate, solved, solvedproblems, unsolved, unsolvedproblems);
 	        
 	        //1번 uid 비교
 	        rootRef.child('user').child(userId).once('value', function(data){
