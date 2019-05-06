@@ -291,7 +291,7 @@ public class BaekjoonCrawler {
 		}
 		
 		//Write problem json as problemID.json
-		File file = new File("data/users/"+userID+".json");
+		File file = new File("./data/users/"+userID+".json");
 		
 		try {
 			FileWriter fw = new FileWriter(file);
@@ -343,7 +343,7 @@ public class BaekjoonCrawler {
 		}
 		
 		//Write problem json as problemID.json
-		File file = new File("data/problems/"+problemID+".json");
+		File file = new File("./data/problems/"+problemID+".json");
 		
 		try {
 			FileWriter fw = new FileWriter(file);
@@ -354,14 +354,14 @@ public class BaekjoonCrawler {
 		}
 		
 	}
-	/*
-	public static void main(String[] args) {			
+	
+	public static void main(String[] args) {
 		String userID = "ksaid0203";
 		String userPW = "rlawngh2@";
 		
 		BaekjoonCrawler bojcrawl = new BaekjoonCrawler(userID,userPW);
-		bojcrawl.writeProblemJson("1001");
-		bojcrawl.writeUserInfoJson("userID");
+		//bojcrawl.writeProblemJson("1001");
+		//bojcrawl.writeUserInfoJson("userID");
 	}
-	*/
+	
 }

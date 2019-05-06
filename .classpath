@@ -15,5 +15,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/WEB_BAEKJOONGG/jsoup-1.11.3.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/WEB_BAEKJOONGG/postgresql-42.2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
