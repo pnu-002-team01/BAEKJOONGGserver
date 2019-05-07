@@ -10,8 +10,8 @@
 </head>
 <body>
 	<center>
-		<a href="input.jsp"><img alt="MainLogo" src="img/main_logo.png" width="650" height="220"></a><p>
-		<form id="send" action="testpage.jsp" method="post">
+		<img alt="MainLogo" src="img/main_logo.png" width="650" height="220"><p>
+		<form id="send" action="problems.jsp" method="post">
 			<p>ID : <input type="text" placeholder="아이디를 입력하세요" name="id"></p>
 			<p>PW : <input type="password" placeholder="비밀번호" name="pw"></p>
 			<input type="submit" value="Login">

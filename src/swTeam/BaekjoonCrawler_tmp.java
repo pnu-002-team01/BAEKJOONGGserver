@@ -190,8 +190,24 @@ public class BaekjoonCrawler_tmp {
 			for ( int i = 1; i < rows.size(); i++ ) {
 				Element row = rows.get(i);
 				Elements cols = row.select("td");
-				String tmp = "<a href='#' ";
-				tmp += "onclick=\"change("+cols.get(0).ownText()+")\">"+cols.get(0).ownText()+"</a>";
+				String tmp = "<tr onclick='setcompare("+cols.get(0).ownText()+")' onMouseOver=\"this.style.backgroundColor='#FFF4E9';\" onMouseOut=\"this.style.backgroundColor=''\"><td><a href='#' ";
+				tmp += "onclick=\"change("+cols.get(0).ownText()+")\">"+cols.get(0).ownText()+"</a></td>";
+				if ( cols.get(3).text().contains("맞았") )
+					tmp += "<td style='font-weight:bold; color:green;'>"+cols.get(3).text()+"</td>";
+				else
+					tmp += "<td style='font-weight:bold; color:red;'>"+cols.get(3).text()+"</td>";
+				if ( !cols.get(5).text().equals("") )
+					tmp += "<td>"+cols.get(5).text()+" ms"+"</td>";
+				else
+					tmp += "<td></td>";
+				tmp += "<td>"+cols.get(6).text().replace(" / 수정", "")+"</td>";
+				tmp += "<td>"+cols.get(8).text()+"</td>";
+				String val = "0";
+				if ( cols.get(6).text().contains("Java") )
+					val = "1";
+				tmp += "<td><a href='#' ";
+				tmp += "onclick=\"analysis("+cols.get(0).ownText()+","+val+")\">소스 분석</a></td>";
+				tmp += "</tr>";
 				res.add(tmp);
 			}
 		} catch(IOException e) {

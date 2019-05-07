@@ -11,9 +11,9 @@ public class CodeCompare {
 	static private Queue<Integer>[] results = new LinkedList[2];
 	static private 	ArrayList<String>[] file = new ArrayList[2];
 	
-	CodeCompare(String code1, String code2) {
-		file[0] = new ArrayList<>(Arrays.asList(code1.split("\r\n")));
-		file[1] = new ArrayList<>(Arrays.asList(code2.split("\r\n")));
+	public CodeCompare(String code1, String code2) {
+		file[0] = new ArrayList<>(Arrays.asList(code1.split("\n")));
+		file[1] = new ArrayList<>(Arrays.asList(code2.split("\n")));
 		file[0].add("$");
 		file[1].add("$");
 		row = file[0].size();
@@ -52,17 +52,20 @@ public class CodeCompare {
 		return misMatch(file[idx], results[idx]);
 	}
 	
-	public static void printCode(ArrayList<String> code, Queue<Integer> equal, int index) {
-		for ( int i = 0; i < code.size()-1; i++ ) {
-			if ( i != equal.peek() ) {
+	public String printCode(int index) {
+		String r = "";
+		for ( int i = 0; i < file[index].size()-1; i++ ) {
+			r += "<div";
+			if ( !results[index].isEmpty() && i != results[index].peek() ) {
 				if ( index == 0 )
-					System.out.print("[»èÁ¦µÊ] ");
+					r += " style='background-color:red'";
 				else
-					System.out.print("[Ãß°¡µÊ] ");
+					r += " style='background-color:green'";
 			} else
-				equal.poll();
-			System.out.println(code.get(i));
+				results[index].poll();
+			r += ">"+file[index].get(i)+"</div><br/>";
 		}
+		return r;
 	}
 	
 	public static ArrayList<Integer> misMatch(ArrayList<String> code, Queue<Integer> equal) {

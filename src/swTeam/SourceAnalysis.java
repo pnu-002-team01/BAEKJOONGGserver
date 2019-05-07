@@ -18,8 +18,8 @@ public class SourceAnalysis {
 	private static URLConnection conn;
 	private static int type;
 	
-	SourceAnalysis(int t) {
-		type = t;
+	public SourceAnalysis(String t) {
+		type = Integer.parseInt(t);
 		try {
 			url = new URL(PUBLIC_IP+Source[type]);
 			conn = url.openConnection();
@@ -30,10 +30,10 @@ public class SourceAnalysis {
 		}
 	}
 	
-	public ArrayList<String> Analysis(String userid, int problem, String code) {
+	public String Analysis(String userid, String problem, String code) {
 		ArrayList<String> result = new ArrayList<>();
 		try {
-			String filename = userid+"_"+Integer.toString(problem);
+			String filename = userid+"_"+problem;
 			String param = URLEncoder.encode("source", "UTF-8")+"="+URLEncoder.encode(filename, "UTF-8");
 			param += "&"+URLEncoder.encode("content", "UTF-8")+"="+URLEncoder.encode(code, "UTF-8");
 			conn.setDoOutput(true);
@@ -76,7 +76,10 @@ public class SourceAnalysis {
 		}
 		if ( result.isEmpty() )
 			result.add("There is no code smells or Analysis is not done");
-		return result;
+		String r = "";
+		for ( int i = 0; i < result.size()-1; i++ )
+			r += result.get(i)+"\n";
+		return r;
 	}
 
 }
